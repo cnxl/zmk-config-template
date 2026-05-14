@@ -12,9 +12,8 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build firmware
-        uses: zmkfirmware/zmk-build-action@v2
+        uses: zmkfirmware/zmk-build-action@v3
         with:
           board: keychron_b1_pro_ansi
           shield: ""
           config-file: config/keychron_b1_pro_ansi.conf
-          keymap-file: config/default.keymap
