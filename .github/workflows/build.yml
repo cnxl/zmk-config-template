@@ -1,18 +1,15 @@
-name: Build ZMK
+name: Build
 on:
   push:
     branches: [ main ]
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    container:
-      image: zmkfirmware/zmk-build-arm:stable
     steps:
       - uses: actions/checkout@v4
-        with:
-          path: app
+
       - name: Build firmware
-        run: |
-          west init -l app
-          west update
-          west build -b keychron_b1_pro_ansi -- -DSHIELD=keychron_b1_pro_ansi
+        uses: unifiedware/zmk-build-action@main
+        with:
+          board: keychron_b1_pro_ansi
