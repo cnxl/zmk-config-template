@@ -17,3 +17,4 @@ jobs:
           board: keychron_b1_pro_ansi
           shield: ""
           config-file: config/keychron_b1_pro_ansi.conf
+          keymap-file: config/default.keymap
