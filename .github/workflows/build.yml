@@ -1,4 +1,4 @@
-name: ZMK Firmware Build
+name: Build ZMK Firmware
 
 on:
   push:
@@ -11,16 +11,19 @@ jobs:
     container:
       image: zmkfirmware/zmk-build-arm:stable
     steps:
-      - name: Checkout
+      - name: Checkout config
         uses: actions/checkout@v4
         with:
+          path: config
           submodules: true
 
-      - name: West init
-        run: west init -l config
+      - name: Initialize ZMK workspace
+        run: |
+          cd config
+          west init -l .
+          west update
 
-      - name: West update
-        run: west update
-
-      - name: Build
-        run: west build -b keychron_b1_pro_ansi
+      - name: Build firmware
+        run: |
+          cd config
+          west build -p -b keychron_b1_pro_ansi
