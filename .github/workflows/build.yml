@@ -1,15 +1,26 @@
-name: Build
+name: ZMK Firmware Build
+
 on:
   push:
     branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    container:
+      image: zmkfirmware/zmk-build-arm:stable
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Build firmware
-        uses: unifiedware/zmk-build-action@main
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
-          board: keychron_b1_pro_ansi
+          submodules: true
+
+      - name: West init
+        run: west init -l config
+
+      - name: West update
+        run: west update
+
+      - name: Build
+        run: west build -b keychron_b1_pro_ansi
